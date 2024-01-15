@@ -106,10 +106,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   headerAnimationWithScroll();
-  const gsapSquares = document.querySelector(".section_title_square");
-  const rotateSquares = gsap.from(gsapSquares, 3, {
-    rotation: 720,
+
+  const gsapSquares = gsap.utils.toArray(".section_title_square");
+  gsapSquares.forEach((square) => {
+    const rotate = gsap.from(gsapSquares, 3, {
+      rotation: 720,
+    });
+
+    ScrollTrigger.create({
+      trigger: gsapSquares,
+      Animation: rotate,
+      start: "top bottom",
+      scrub: 1.9,
+    });
   });
+
+  // const gsapSquares = document.querySelector(".section_title_square");
+  // const rotateSquares = gsap.from(gsapSquares, 3, {
+  //   rotation: 720,
+  // });
 
   ScrollTrigger.create({
     trigger: gsapSquares, //애니메이션 대상
@@ -135,3 +150,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   aboutAnimationWithScroll();
 }); // end of DOM Content Loaded Method
+
+// benefit section Animation effect
+function benefits() {
+  gsap.from(".benefits_num", {
+    x: (i, el) => 1 - parseFloat(el.getAttribute("data-speed")),
+    scrollTrigger: {
+      trigger: ".benefits_list",
+      start: "top bottom",
+      scrub: 1.9,
+    },
+  });
+}
+
+benefits();
